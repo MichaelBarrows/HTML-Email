@@ -99,7 +99,7 @@ class Mailer {
     <head>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>HTML EMAIL</title>
-      <!-- <link rel="stylesheet" href="https://michaelbarrows.com/html-email/styles.css"> -->
+      <!-- <link rel="stylesheet" href="http://html-email.michaelbarrows.co.uk/styles.css"> -->
       <style>
     @font-face {
       font-family: "Open Sans";
@@ -122,7 +122,7 @@ class Mailer {
         </tr>
         <tr style="font-family: Open Sans, sans-serif;">
           <td width="50%" style="font-family: Open Sans, sans-serif; padding: 15px 0 0 15px;">
-            <a href="http://grooup.com" style="font-family: Open Sans, sans-serif;"><img src="https://html-email.michaelbarrows.com/grooup-logo.png" width="200px" style="font-family: Open Sans, sans-serif;"></a>
+            <a href="http://grooup.com" style="font-family: Open Sans, sans-serif;"><img src="http://html-email.michaelbarrows.co.uk/grooup-logo.png" width="200px" style="font-family: Open Sans, sans-serif;"></a>
           </td>
           <td class="nav" style="font-family: Open Sans, sans-serif; vertical-align: top; text-align: right; padding-top: 15px;" valign="top" align="right">
             <a href="#" style="font-family: Open Sans, sans-serif; margin-right: 1.2em; font-weight: 600; text-decoration: none; letter-spacing: .5px; color: #252525; opacity: 0.5; font-size: 0.75em;">GROOUP</a>
@@ -141,7 +141,7 @@ class Mailer {
           $message .= '
           <tr style="font-family: Open Sans, sans-serif;">
             <td width="50%" style="font-family: Open Sans, sans-serif; padding-left: 40px;">
-              <img src="https://html-email.michaelbarrows.com/' . $project->getProjectImage() . '" alt="' . $project->getAltText() .  '"width="90%" style="font-family: Open Sans, sans-serif; border-radius: 8px; margin-top: 20px;">
+              <img src="http://html-email.michaelbarrows.co.uk/' . $project->getProjectImage() . '" alt="' . $project->getAltText() .  '"width="90%" style="font-family: Open Sans, sans-serif; border-radius: 8px; margin-top: 20px;">
             </td>
             <td width="50%" style="font-family: Open Sans, sans-serif; vertical-align: top; padding-left: 30px; padding-top: 20px; padding-right: 40px;" valign="top">
               <h1 style="font-family: Open Sans, sans-serif;">' . $project->getProjectTitle() . '</h1>
@@ -155,11 +155,11 @@ class Mailer {
             <p style="font-family: Open Sans, sans-serif;">' . $signature . '</p>
           </td>
         </tr>
-        <tr style="font-family: Open Sans, sans-serif; background-color: #181818; padding: 0 15px;" bgcolor="#181818">
+        <!-- <tr style="font-family: Open Sans, sans-serif; background-color: #181818; padding: 0 15px;" bgcolor="#181818">
           <td colspan="2" style="font-family: Open Sans, sans-serif; color: #FFFFFF; line-height: 3em; text-align: center; opacity: .5;" align="center">
             &copy; Michael Barrows 2018
           </td>
-        </tr>
+        </tr> -->
       </table>
     </body>
     </html>

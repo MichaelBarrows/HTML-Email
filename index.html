@@ -11,7 +11,7 @@
     </header>
     <section>
       <p>Fill in this form to send a HTML Email</p>
-      <form method="POST" action="https://html-email.michaelbarrows.com/" enctype="multipart/form-data">
+      <form method="POST" action="https://html-email.michaelbarrows.co.uk/" enctype="multipart/form-data">
         <h2>Email Settings</h2>
         <label>
           <span>To (Email Address):</span>
@@ -53,7 +53,27 @@
           <span>Project Text:</span>
           <textarea name="project_text[]" placeholder="Project Text"></textarea>
         </label>
-        <p><a href="#">+</a></p>
+        <p><a href="#" class="plus">+</a></p>
+        <hr>
+        <h2>Project Settings</h2>
+        <label>
+          <span>Project Image:</span>
+          <input type="file" name="project_image[]">
+          <span><br>Please note: images should be at least 200px wide</span>
+        </label>
+        <label>
+          <span>Alternative Image Text:</span>
+          <input type="text" name="project_image_alt[]" placeholder="Alternative Image Text">
+        </label>
+        <label>
+          <span>Project Title:</span>
+          <input type="text" name="project_title[]" placeholder="Project Title">
+        </label>
+        <label>
+          <span>Project Text:</span>
+          <textarea name="project_text[]" placeholder="Project Text"></textarea>
+        </label>
+        <p><a href="#" class="plus">+</a></p>
         <hr>
         <input type="submit" value="Send Email">
       </form>
