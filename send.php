@@ -2,6 +2,8 @@
 
 /**
 * Mailer object
+* Used to send the email, process all user data, create project objects and
+* output the sent email
 */
 class Mailer {
   public $fromName = "MICHAEL BARROWS";
@@ -21,6 +23,7 @@ class Mailer {
     $this->alts = $_POST['project_image_alt'];
     $this->titles = $_POST['project_title'];
     $this->texts = $_POST['project_text'];
+    $this->links = $_POST['project_link'];
     return;
   }
 
@@ -40,9 +43,11 @@ class Mailer {
     // replace end of line with breaks
     $this->content = $this->replaceEndOfLine($this->content);
     $this->signature = $this->replaceEndOfLine($this->signature);
+    // Create a new project for each alt text
     for ($idx = 0; $idx < sizeof($this->alts); $idx++) {
-      $this->projects[$idx] = new Project($idx, $this->makeUserInputSafe($this->alts[$idx]), $this->makeUserInputSafe($this->titles[$idx]), $this->replaceEndOfLine($this->makeUserInputSafe($this->texts[$idx])));
+      $this->projects[$idx] = new Project($idx, $this->makeUserInputSafe($this->alts[$idx]), $this->makeUserInputSafe($this->titles[$idx]), $this->replaceEndOfLine($this->makeUserInputSafe($this->texts[$idx])), $this->makeUserInputSafe($this->links[$idx]));
     }
+    // Sets email headers, generates the HTML message and sends the email
     $this->headers = $this->setHeaders();
     $this->emailContent = $this->createMessage();
     $this->sendEmail($this->to, $this->subject, $this->emailContent, $this->headers);
@@ -97,73 +102,69 @@ class Mailer {
     <!DOCTYPE html>
     <html>
     <head>
+      <!-- Makes the email appear better on mobile -->
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>HTML EMAIL</title>
-      <!-- <link rel="stylesheet" href="http://html-email.michaelbarrows.co.uk/styles.css"> -->
-      <style>
-    @font-face {
-      font-family: "Open Sans";
-      font-weight: 400;
-      font-style: normal;
-      src: local("Open Sans Regular"), local("OpenSans-Regular"), url(https://fonts.gstatic.com/s/opensans/v15/mem8YaGs126MiZpBA-UFVZ0b.woff2) format("woff2");
-      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-      }
-      p {
-        text-align: left;
-      }
-    </style>
     </head>
-    <body style="padding: 0; margin: 0;">
-      <table border="0" width="80%" cellpadding="0" cellspacing="0" style="font-family: Open Sans, sans-serif; margin: auto;">
-        <tr style="font-family: Open Sans, sans-serif; background-color: #FAFAFA;" bgcolor="#FAFAFA">
+    <body style="margin: 0;">
+      <!-- Table to contain the email so it is displayed as intended -->
+      <table border="0" width="100%" cellpadding="0" cellspacing="0" id="main" style="font-family: Open Sans, sans-serif; margin: auto;">
+        <!-- used to give a grey bg -->
+        <tr class="header" style="font-family: Open Sans, sans-serif; background-color: #FAFAFA;" bgcolor="#FAFAFA">
+          <!-- cell spans two columns -->
           <td colspan="2" style="font-family: Open Sans, sans-serif; opacity: .5; font-size: 0.8em; line-height: 1.8em; color: #666666; padding: 0.9em 0 0.9em 15px;">
             Grooup | eCommerce Consultancy
           </td>
         </tr>
         <tr style="font-family: Open Sans, sans-serif;">
-          <td width="50%" style="font-family: Open Sans, sans-serif; padding: 15px 0 0 15px;">
-            <a href="http://grooup.com" style="font-family: Open Sans, sans-serif;"><img src="http://html-email.michaelbarrows.co.uk/grooup-logo.png" width="200px" style="font-family: Open Sans, sans-serif;"></a>
-          </td>
-          <td class="nav" style="font-family: Open Sans, sans-serif; vertical-align: top; text-align: right; padding-top: 15px;" valign="top" align="right">
-            <a href="#" style="font-family: Open Sans, sans-serif; margin-right: 1.2em; font-weight: 600; text-decoration: none; letter-spacing: .5px; color: #252525; opacity: 0.5; font-size: 0.75em;">GROOUP</a>
-            <a href="#" style="font-family: Open Sans, sans-serif; margin-right: 1.2em; font-weight: 600; text-decoration: none; letter-spacing: .5px; color: #252525; opacity: 0.5; font-size: 0.75em;">WORK</a>
-            <a href="#" style="font-family: Open Sans, sans-serif; margin-right: 1.2em; font-weight: 600; text-decoration: none; letter-spacing: .5px; color: #252525; opacity: 0.5; font-size: 0.75em;">JOBS</a>
-            <a href="#" style="font-family: Open Sans, sans-serif; margin-right: 1.2em; font-weight: 600; text-decoration: none; letter-spacing: .5px; color: #252525; opacity: 0.5; font-size: 0.75em;">CONTACT</a>
+          <!-- spans two columns, holds the Grooup logo -->
+          <td colspan="2" style="font-family: Open Sans, sans-serif;">
+            <a href="http://grooup.com" style="font-family: Open Sans, sans-serif;"><img src="https://projects.michaelbarrows.co.uk/html-email/img/grooup-logo.png" width="200px" style="font-family: Open Sans, sans-serif;"></a>
           </td>
         </tr>
-        <tr style="font-family: Open Sans, sans-serif; padding: 0 15px;">
-          <td colspan="2" style="font-family: Open Sans, sans-serif; padding-left: 40px; padding-right: 40px;">
-            <p style="font-family: Open Sans, sans-serif; margin-bottom: 30px;">Hello ' . $name . ',</p>
-            <p style="font-family: Open Sans, sans-serif;">' . $content . '</p>
+        <!-- table row that holds the greeting -->
+        <tr class="content" style="font-family: Open Sans, sans-serif;">
+          <td colspan="2" style="font-family: Open Sans, sans-serif; width: 35%; padding-right: 2.5%;" width="35%">
+              <p class="indent" style="font-family: Open Sans, sans-serif; padding-left: 5%; padding-right: 5%;">Hello ' . $name . '</p>
+              <p class="indent" style="font-family: Open Sans, sans-serif; padding-left: 5%; padding-right: 5%">' . $content . '</p>
           </td>
         </tr>';
+
         foreach ($this->projects as $project) {
           $message .= '
-          <tr style="font-family: Open Sans, sans-serif;">
-            <td width="50%" style="font-family: Open Sans, sans-serif; padding-left: 40px;">
-              <img src="http://html-email.michaelbarrows.co.uk/' . $project->getProjectImage() . '" alt="' . $project->getAltText() .  '"width="90%" style="font-family: Open Sans, sans-serif; border-radius: 8px; margin-top: 20px;">
-            </td>
-            <td width="50%" style="font-family: Open Sans, sans-serif; vertical-align: top; padding-left: 30px; padding-top: 20px; padding-right: 40px;" valign="top">
-              <h1 style="font-family: Open Sans, sans-serif;">' . $project->getProjectTitle() . '</h1>
-              <p style="font-family: Open Sans, sans-serif;">' . $project->getProjectText() . '</p>
-            </td>
-          </tr>
-          ';
-        }
-        $message .= '<tr style="font-family: Open Sans, sans-serif; padding: 0 15px;">
-          <td colspan="2" style="font-family: Open Sans, sans-serif; padding-left: 40px; padding-right: 40px;">
-            <p style="font-family: Open Sans, sans-serif;">' . $signature . '</p>
+        <!-- table tow, holds a single project -->
+        <tr class="content" style="font-family: Open Sans, sans-serif;">
+          <td style="font-family: Open Sans, sans-serif; width: 35%; padding-right: 2.5%;" width="35%">
+            <!-- project image -->
+            <img src="https://projects.michaelbarrows.co.uk/html-email/' . $project->getProjectImage() . '" alt="' . $project->getAltText() .  '" width="90%" style="font-family: Open Sans, sans-serif; border-radius: 7px; margin: 15px 0 15px 15%;">
+          </td>
+          <td style="font-family: Open Sans, sans-serif; width: 60%; vertical-align: top;" width="60%" valign="top">
+            <!-- project text (title, text and link) -->
+            <h1 style="font-family: Open Sans, sans-serif; font-size: 2em; padding-left: 10px; padding-right: 0; color: #000000;">' . $project->getProjectTitle() . '</h1>
+            <p style="font-family: Open Sans, sans-serif; padding-left: 10px; padding-right: 0; color: #000000;">' . $project->getProjectText() . '</p>
+            <p style="font-family: Open Sans, sans-serif; padding-left: 10px; padding-right: 0; color: #000000;"><a href="' . $project->getProjectLink() . '" style="font-family: Open Sans, sans-serif; color: #50b853; font-weight: bold; font-size: 0.9em; text-decoration: none;">View Project &gt;&gt;</a></p>
           </td>
         </tr>
-        <!-- <tr style="font-family: Open Sans, sans-serif; background-color: #181818; padding: 0 15px;" bgcolor="#181818">
-          <td colspan="2" style="font-family: Open Sans, sans-serif; color: #FFFFFF; line-height: 3em; text-align: center; opacity: .5;" align="center">
+        ';
+      }
+
+      $message .= '
+        <!-- Row that holds the email signature -->
+        <tr class="content" style="font-family: Open Sans, sans-serif;">
+          <td colspan="2" style="font-family: Open Sans, sans-serif; width: 35%; padding-right: 2.5%;" width="35%">
+            <p class="indent" style="font-family: Open Sans, sans-serif; padding-left: 5%; padding-right: 5%;">' . $signature . '</p>
+          </td>
+        </tr>
+        <!-- Copyright footer -->
+        <tr class="footer content" style="font-family: Open Sans, sans-serif; background-color: #181818;" bgcolor="#181818">
+          <td colspan="2" style="font-family: Open Sans, sans-serif; color: #FFFFFF; line-height: 3em; text-align: center; opacity: .5; width: 35%; padding-right: 2.5%;" width="35%" align="center">
             &copy; Michael Barrows 2018
           </td>
-        </tr> -->
+        </tr>
       </table>
     </body>
-    </html>
-    ';
+    </html>';
+
     $this->message = $message;
     return $message;
   }
@@ -180,8 +181,9 @@ class Mailer {
 
   /**
   * makeUserInputSafe($userInput)
-  * The makeUserInputSafe() method does what?
-  * ?????????????????????????????????????????
+  * The makeUserInputSafe() method removes whitespace &other characters from the
+  * userInput, removes backslashes, and converts special HTML charachtes such
+  * as quotes and ampersands to HTML entities
   */
   function makeUserInputSafe($userInput) {
     $userInput = trim($userInput);
@@ -192,8 +194,8 @@ class Mailer {
 
   /**
   * setHeaders()
-  * The setHeaders() method is used to ?
-  * ????????????????????????????????????
+  * The setHeaders() method is used to set the email's headers, such as
+  * Mime type, type of email (HTML) and sets the sender
   */
   function setHeaders() {
     $headers = "MIME-Version: 1.0" . "\r\n";
@@ -217,15 +219,17 @@ class Mailer {
 class Project {
 
   /**
-  * __construct($imageNumber, $alt. $title, $text)
-  * The __construct() method is used to ...
+  * __construct($imageNumber, $alt. $title, $text, $link)
+  * The __construct() method is used to assign user input to properties and
+  * calls the checkFileIsImage and storeProjectImage methods
   */
-  public function __construct($imageNumber, $alt, $title, $text) {
+  public function __construct($imageNumber, $alt, $title, $text, $link) {
     $this->imageName = $_FILES["project_image"]["name"][$imageNumber];
     $this->imageTmpName = $_FILES["project_image"]["tmp_name"][$imageNumber];
     $this->alt = $alt;
     $this->title = $title;
     $this->text = $text;
+    $this->link = $link;
     $this->checkFileIsImage();
     $this->storeProjectImage();
   }
@@ -250,7 +254,7 @@ class Project {
     }
     $this->imageName = $idx . "_" . $this->imageName;
     if(!move_uploaded_file($this->imageTmpName, "$this->imagePath/$this->imageName")) {
-      die("Image could not be uploaded.");
+      print_r($this);
     }
   }
 
@@ -336,8 +340,16 @@ class Project {
   public function getProjectText() {
     return $this->text;
   }
-}?>
 
+  /**
+  * getProjectLink()
+  * The getProjectLink() method returns the project link from the link property
+  */
+  public function getProjectLink() {
+    return $this->link;
+  }
+}?>
+<!-- HTML output -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -351,24 +363,29 @@ class Project {
     </header>
     <section>
       <?php
+        // Checks if the page request came from the form
         if($_SERVER["REQUEST_METHOD"] == "POST") {
+          // Creates the new mailer object
           $email = new Mailer();
+          // Calls the prepareEmail function to process all user input and send the email
           $email->prepareEmail();
           ?>
           <h2>Your email was sent.</h2>
+          <!-- Prints the name, email address and subject -->
           <p class="left">To: <?php echo $email->getName();?> &lt;<?php echo $email->getEmailAddress();?>&gt;</p>
           <p class="left">Subject: <?php echo $email->getSubject(); ?></p>
           <?php
+          // Prints the email message that was sent
           echo $email->getMessage();
         } else { ?>
+          <!-- Error message if the page was accessed directly -->
           <p>Please submit the form to send the email</p>
+          <p><a href="index.html">Go Back</a>
         <?php }
       ?>
     </section>
     <footer>
       <p>&copy; Michael Barrows 2018</p>
     </footer>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="js/app.js"></script>
   </body>
 </html>

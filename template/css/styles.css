@@ -1,31 +1,46 @@
-@font-face {
-  font-family: 'Open Sans';
-  font-weight: 400;
-  font-style: normal;
-  src: local("Open Sans Regular"), local("OpenSans-Regular"), url(https://fonts.gstatic.com/s/opensans/v15/mem8YaGs126MiZpBA-UFVZ0b.woff2) format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-body * {
-  font-family: "Open Sans", sans-serif; }
-
 body {
-  padding: 0;
   margin: 0; }
-
-table {
-  margin: auto; }
-
-td.nav {
-  vertical-align: top;
-  text-align: right;
-  padding-top: 15px; }
-
-td.nav a {
-  margin-right: 1.2em;
-  font-weight: 600;
-  text-decoration: none;
-  letter-spacing: .5px;
-  color: #252525;
-  opacity: 0.5;
-  font-size: 0.75em; }
+  body * {
+    font-family: "Open Sans", sans-serif; }
+  body table#main {
+    margin: auto; }
+    body table#main tr.header {
+      background-color: #FAFAFA; }
+      body table#main tr.header td {
+        opacity: .5;
+        font-size: 0.8em;
+        line-height: 1.8em;
+        color: #666666;
+        padding: 0.9em 0 0.9em 15px; }
+    body table#main tr.content td:nth-child(1) {
+      width: 35%;
+      padding-right: 2.5%; }
+    body table#main tr.content td:nth-child(2) {
+      width: 60%;
+      vertical-align: top; }
+      body table#main tr.content td:nth-child(2) h1, body table#main tr.content td:nth-child(2) p {
+        padding-left: 10px;
+        padding-right: 0;
+        color: #000000; }
+        body table#main tr.content td:nth-child(2) h1 a, body table#main tr.content td:nth-child(2) p a {
+          color: #50b853;
+          font-weight: bold;
+          font-size: 0.9em;
+          text-decoration: none; }
+    body table#main tr.content td img {
+      border-radius: 7px;
+      margin: 15px 0 15px 15%; }
+    body table#main tr.content td h1 {
+      font-size: 2em; }
+    body table#main tr.content td p {
+      padding-left: 5%;
+      padding-right: 5%; }
+    body table#main tr.footer {
+      background-color: #181818; }
+      body table#main tr.footer td {
+        color: #FFFFFF;
+        line-height: 3em;
+        text-align: center;
+        opacity: .5; }
 
 /*# sourceMappingURL=styles.css.map */

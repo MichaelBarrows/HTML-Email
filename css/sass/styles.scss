@@ -1,14 +1,22 @@
+// Variables for colours and fonts
 $primary-colour: #777777;
 $secondary-colour: #FFFFFF;
 $font: sans-serif;
 
+// ensures the body takes up the whole viewport (No borders and sets the default
+// font)
 body {
   margin: 0;
   font-family: $font;
 }
+
+// gives the header a grey background and some space between the header and
+// form/content
 header {
   background-color: $primary-colour;
   margin-bottom: 15px;
+  // increases font size of h1, sets colour to white and centers text, also pads
+  // on left and right for mobile
   h1 {
     text-align: center;
     color: $secondary-colour;
@@ -18,19 +26,23 @@ header {
   }
 }
 section {
+  // sets heading 2 to grey and gives some white space either side.
   h2 {
     color: $primary-colour;
     margin-left: 10%;
     margin-right: 10%;
   }
+  // centers the paragragh text
   p {
     text-align: center;
+    // aligns paragraph text to the left and gives white space either side
     &.left {
       text-align: left;
       margin-left: 10%;
       margin-right: 10%;
     }
   }
+  // displays the form as a grid container with a single column
   form {
     width: 85%;
     display: grid;
@@ -38,11 +50,13 @@ section {
     margin: auto;
     grid-gap: 15px;
     padding: 15px 0;
+    // centers and colours the second heading
     h2 {
       color: $primary_colour;
       margin: 0px;
       text-align: center;
     }
+    // Horizontal rule between sections, displayed as a grey line
     hr {
       display: block;
       border-style: solid;
@@ -52,11 +66,14 @@ section {
       margin-top: 0.25em;
       margin-bottom: 0.25em;
     }
+    // displays the label as a self contained element
     label {
       display: block;
+      // indents span text
       span {
         padding-left: 3px;
       }
+      // styles the text boxes, inc textare and send button
       input, textarea {
         box-sizing: border-box;
         margin-top: 5px;
@@ -65,22 +82,26 @@ section {
         padding: 10px;
         border: 2px $primary-colour solid;
       }
+      // increases the height of the textarea and applies the font as overwritten
+      // with the default if declared anywhere else
       textarea {
         min-height: 50px;
         font-family: $font;
       }
     }
+    // alligns the p element containing the add another project link to the right
     p {
       text-align:right;
+      // gives the link a grey colour and border, increases sizing
       a {
-        color: black;
-        text-transform: capitalize;
-        font-size: 1.2em;
+        color: $primary-colour;
+        font-size: 1.1em;
         border: 2px $primary-colour solid;
         padding: 5px 10px;
         text-decoration: none;
       }
     }
+    // styles the send button, with borders, background colours and sizing
     input[type="submit"] {
       display: block;
       margin: auto;
@@ -91,12 +112,12 @@ section {
       vertical-align: bottom;
     }
   }
-
 }
-
+// gives the footer a grey background and a margin at the top
 footer {
   background-color: $primary-colour;
   margin-top: 15px;
+  // centers the footer text and makes it white
   p {
     text-align: center;
     color: $secondary-colour;
@@ -105,59 +126,47 @@ footer {
   }
 }
 
+// aligns all para content in the sent email (table) to the left
 table tr td p {
   text-align: left;
 }
 
-
+// styles for desktop
 @media only screen and (min-width: 800px) {
-  body {
-    margin: 0;
-    font-family: sans-serif;
-  }
-  header {
-    background-color: $primary-colour;
-    margin-bottom: 15px;
-    h1 {
-      text-align: center;
-      color: $secondary-colour;
-      margin: 0;
-      padding: 15px 0;
-      font-size: 2.5em;
-    }
-  }
+
   section {
+    // Displays the form elements in two columns
     form {
-      width: 85%;
-      display: grid;
       grid-template-columns: 50% 50%;
-      margin: auto;
-      grid-gap: 15px;
-      padding: 15px 0;
+      // Makes the second heading span both columns
       h2 {
-        grid-column: 1 / 3;
+        grid-column: span 2;
       }
       label {
+        // sets the minimum height for input text boxes and submit
         input {
           box-sizing:border-box;
           min-height: 45px;
         }
+        // sets the minimum height for text area
         textarea {
           min-height: 90px;
         }
       }
+      // makes the horizontal rule span both columns
       hr {
-        grid-column: 1 / 3;
+        grid-column: span 2;
       }
+      // gives increased padding to add a project button
       p {
-        grid-column: 1 / 3;
+        padding-top: 30px;
         a {
           margin-top: 15px;
         }
       }
+      // desktop styles for submit button
       input[type="submit"] {
-        grid-column: 1 / 3;
-        box-sizing:border-box;
+        grid-column: span 2;
         min-height: 45px;
         font-size: 1.2em;
         color: $primary-colour;

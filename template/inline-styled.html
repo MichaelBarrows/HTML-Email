@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Makes the email appear better on mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML EMAIL</title>
+</head>
+<body style="margin: 0;">
+  <!-- Table to contain the email so it is displayed as intended -->
+  <table border="0" width="100%" cellpadding="0" cellspacing="0" id="main" style="font-family: 'Open Sans', sans-serif; margin: auto;">
+    <!-- used to give a grey bg -->
+    <tr class="header" style="font-family: 'Open Sans', sans-serif; background-color: #FAFAFA;" bgcolor="#FAFAFA">
+      <!-- cell spans two columns -->
+      <td colspan="2" style="font-family: 'Open Sans', sans-serif; opacity: .5; font-size: 0.8em; line-height: 1.8em; color: #666666; padding: 0.9em 0 0.9em 15px;">
+        Grooup | eCommerce Consultancy
+      </td>
+    </tr>
+    <tr style="font-family: 'Open Sans', sans-serif;">
+      <!-- spans two columns, holds the Grooup logo -->
+      <td colspan="2" style="font-family: 'Open Sans', sans-serif;">
+        <a href="http://grooup.com" style="font-family: 'Open Sans', sans-serif;"><img src="https://projects.michaelbarrows.co.uk/html-email/img/grooup-logo.png" width="200px" style="font-family: 'Open Sans', sans-serif;"></a>
+      </td>
+    </tr>
+    <!-- table row that holds the greeting -->
+    <tr class="content" style="font-family: 'Open Sans', sans-serif;">
+      <td colspan="2" style="font-family: 'Open Sans', sans-serif; width: 35%; padding-right: 2.5%;" width="35%">
+          <p class="indent" style="font-family: 'Open Sans', sans-serif; padding-left: 5%; padding-right: 5%;">Hello, NAME</p>
+          <p class="indent" style="font-family: 'Open Sans', sans-serif; padding-left: 5%; padding-right: 5%">' . $content . '</p>              
+      </td>
+    </tr>
+    <!-- table tow, holds a single project -->
+    <tr class="content" style="font-family: 'Open Sans', sans-serif;">
+      <td style="font-family: 'Open Sans', sans-serif; width: 35%; padding-right: 2.5%;" width="35%">
+        <!-- project image -->
+        <img src="https://projects.michaelbarrows.co.uk/html-email/img/thg.jpg" width="90%" style="font-family: 'Open Sans', sans-serif; border-radius: 7px; margin: 15px 0 15px 15%;">
+      </td>
+      <td style="font-family: 'Open Sans', sans-serif; width: 60%; vertical-align: top;" width="60%" valign="top">
+        <!-- project text (title, text and link) -->
+        <h1 style="font-family: 'Open Sans', sans-serif; font-size: 2em; padding-left: 10px; padding-right: 0; color: #000000;">Project Title</h1>
+        <p style="font-family: 'Open Sans', sans-serif; padding-left: 10px; padding-right: 0; color: #000000;">Project Text</p>
+        <p style="font-family: 'Open Sans', sans-serif; padding-left: 10px; padding-right: 0; color: #000000;"><a href="#" style="font-family: 'Open Sans', sans-serif; color: #50b853; font-weight: bold; font-size: 0.9em; text-decoration: none;">View Project &gt;&gt;</a></p>
+      </td>
+    </tr>
+    <!-- Row that holds the email signature -->
+    <tr class="content" style="font-family: 'Open Sans', sans-serif;">
+      <td colspan="2" style="font-family: 'Open Sans', sans-serif; width: 35%; padding-right: 2.5%;" width="35%">
+        <p class="indent" style="font-family: 'Open Sans', sans-serif; padding-left: 5%; padding-right: 5%;">Kind regards<br style="font-family: 'Open Sans', sans-serif;"><br style="font-family: 'Open Sans', sans-serif;">Michael Barrows</p>
+      </td>
+    </tr>
+    <!-- Copyright footer -->
+    <tr class="footer content" style="font-family: 'Open Sans', sans-serif; background-color: #181818;" bgcolor="#181818">
+      <td colspan="2" style="font-family: 'Open Sans', sans-serif; color: #FFFFFF; line-height: 3em; text-align: center; opacity: .5; width: 35%; padding-right: 2.5%;" width="35%" align="center">
+        &copy; Michael Barrows 2018
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
