@@ -29,7 +29,7 @@ class Mailer {
 
   /**
   * prepareEmail()
-  * The prepareEmail() method
+  * The prepareEmail() method calls all other functions to create the email
   */
   function prepareEmail() {
     $this->getUserInput();
